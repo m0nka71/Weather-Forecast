@@ -17,5 +17,4 @@ public class Weather {
 
     private double temp_max;
 
-
 }

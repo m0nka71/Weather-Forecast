@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Controller
 public class WeatherController {
 
@@ -16,20 +15,16 @@ public class WeatherController {
     }
 
     @GetMapping("/")
-    String findWeather(Model model,String city) {
-        WeatherDto weatherDto = weatherService.getWeatherByCity(city);
-        model.addAttribute("weatherDto", weatherDto);
-        model.addAttribute("city", city);
+    String findWeather(Model model) {
+        model.addAttribute("weatherDto", new WeatherDto());
         return "index";
     }
 
-//    @GetMapping("/city-weather")
-//    String findWeather(Model model) {
-//        model.addAttribute("city", city);
-//        WeatherDto weatherDto = weatherService.getWeatherByCity(city);
-//
-//        model.addAttribute("weatherDto", weatherDto);
-//        return "redirect:city-weather";
-//    }
+    @GetMapping("/city-weather")
+    String findWeather(Model model, WeatherDto weatherDto) {
+        WeatherDto weatherByCity = weatherService.getWeatherByCity(weatherDto.getCity());
+        model.addAttribute("weatherDto", weatherByCity);
+        return "index";
+    }
 
 }

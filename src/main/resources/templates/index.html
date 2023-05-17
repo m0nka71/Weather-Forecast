@@ -8,9 +8,9 @@
 <body>
 <div style="margin: 100px auto; max-width: 1000px; width: 100%">
     <h3>Podaj miasto dla którego chcesz sprawdzić aktualną pogodę</h3>
-    <form th:action="@{/index}">
+    <form th:action="@{/city-weather}">
         <form class="form-inline" th:object="${weatherDto}">
-            <input class="form-control mr-sm-2" type="search" placeholder="Kraków" name="city" th:value="${city}">
+            <input class="form-control mr-sm-2" type="search" placeholder="Kraków" name="city" th:value="${weatherDto.city}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Szukaj</button>
         </form>
     </form>
@@ -20,17 +20,17 @@
     <table class="table">
         <thead>
         <tr>
-            <td>Temperatura</td>
-            <td>Min</td>
-            <td>Max</td>
+            <td>Temperatura °C</td>
+            <td>Min °C</td>
+            <td>Max °C</td>
         </tr>
 
         </thead>
         <tbody>
         <tr th:object="${weatherDto}">
-            <td th:text="${weatherDto.temperature}">°C</td>
-            <td th:text="${weatherDto.minTemperature}">°C</td>
-            <td th:text="${weatherDto.maxTemperature}">°C</td>
+            <td th:text="${weatherDto.temperature}"></td>
+            <td th:text="${weatherDto.minTemperature}"></td>
+            <td th:text="${weatherDto.maxTemperature}"></td>
         </tr>
         </tbody>
     </table>

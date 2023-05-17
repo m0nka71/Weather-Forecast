@@ -9,9 +9,9 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class WeatherService {
 
-    private static final String URL = "http://api.openweathermap.org/data/2.5/forecast/";
+    private static final String URL = "http://api.openweathermap.org/data/2.5/";
 
-    private final String API_ID = "{95f3bce1fce123d8e048df2598bb0df7}";
+    private final String API_ID = "95f3bce1fce123d8e048df2598bb0df7";
 
     private final static RestTemplate restTemplate = new RestTemplate();
 
