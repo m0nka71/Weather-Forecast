@@ -9,8 +9,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Weather {
+public class MainWeather {
 
-    private MainWeather main;
+    private double temp;
+
+    private double temp_min;
+
+    private double temp_max;
 
 }

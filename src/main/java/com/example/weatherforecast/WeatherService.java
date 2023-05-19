@@ -1,10 +1,11 @@
 package com.example.weatherforecast;
 
-import com.example.weatherforecast.error.WeatherDataNotAvailableException;
 import com.example.weatherforecast.object.Weather;
 import com.example.weatherforecast.object.WeatherDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
 
 @Service
 public class WeatherService {
@@ -15,19 +16,22 @@ public class WeatherService {
 
     private final static RestTemplate restTemplate = new RestTemplate();
 
-    public WeatherDto getWeatherByCity(String city) {
-        Weather weather = restTemplate.getForObject(URL + "weather?q={city}&appid={api_id}&units=metric&lang=pl",
-                Weather.class, city, API_ID);
+    public Optional<WeatherDto> getWeatherByCity(String city) {
         try {
-            assert weather != null;
-            return WeatherDto
+            Weather weather = restTemplate.getForObject(URL + "weather?q={city}&appid={api_id}&units=metric&lang=pl",
+                    Weather.class, city, API_ID);
+
+            WeatherDto build = WeatherDto
                     .builder()
-                    .temperature(weather.getTemp())
-                    .minTemperature(weather.getTemp_min())
-                    .maxTemperature(weather.getTemp_max())
+                    .temperature(weather.getMain().getTemp())
+                    .minTemperature(weather.getMain().getTemp_min())
+                    .maxTemperature(weather.getMain().getTemp_max())
+                    .city(city)
                     .build();
+            return Optional.of(build);
         } catch (Exception e) {
-            throw new WeatherDataNotAvailableException();
+            Optional.empty();
         }
+        return Optional.empty();
     }
 }

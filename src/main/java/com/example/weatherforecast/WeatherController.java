@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Optional;
+
 @Controller
 public class WeatherController {
 
@@ -22,9 +24,13 @@ public class WeatherController {
 
     @GetMapping("/city-weather")
     String findWeather(Model model, WeatherDto weatherDto) {
-        WeatherDto weatherByCity = weatherService.getWeatherByCity(weatherDto.getCity());
-        model.addAttribute("weatherDto", weatherByCity);
+        Optional<WeatherDto> weatherByCity = weatherService.getWeatherByCity(weatherDto.getCity());
+        if (weatherByCity.isPresent()) {
+            model.addAttribute("foundWeather", true);
+            model.addAttribute("weatherDto", weatherByCity.get());
+        } else {
+            model.addAttribute("weatherNotFound", true);
+        }
         return "index";
     }
-
 }

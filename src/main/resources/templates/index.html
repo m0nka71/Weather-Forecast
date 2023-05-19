@@ -15,7 +15,7 @@
         </form>
     </form>
 </div>
-<div class="container" style="margin: 100px auto; max-width: 1000px; width: 100%">
+<div class="container" style="margin: 100px auto; max-width: 1000px; width: 100%" th:if="${foundWeather}">
     <h3>Aktualna pogoda</h3>
     <table class="table">
         <thead>
@@ -34,6 +34,9 @@
         </tr>
         </tbody>
     </table>
+</div>
+<div class="container" style="margin: 100px auto; max-width: 1000px; width: 100%" th:if="${weatherNotFound}">
+    <h4 style="font-weight: bold">Nie znaleziono pogody dla wybranego miasta!</h4>
 </div>
 </body>
 </html>
